@@ -1,3 +1,4 @@
+* { margin:0; padding:0; }
 @font-face {
     font-family: 'Inter'; /*a name to be used later*/
     src: url('../fonts/Inter-Regular.ttf'); /*URL to font*/
@@ -90,19 +91,43 @@ body{
     overflow: hidden;
 }
 
-.chat_list_box{
-    display: block;
-    position: relative;
-    width: 400px;
-    border: 2px solid red;
-}
-
 .chat_list{
     list-style-type:none;
+    display: block;
+    border: 2px solid yellow;
+    box-shadow: 5px 0 20px black;
+    width: 400px;
+    position: relative;
+    float: left;
 }
 
 .chat_list_element{
     font-family: 'Inter';
     color: white;
-    text-decoration: none;
+    background-color: #252525;
+    
+    width: 400px;
+    height: 60px;
+    position: relative;
+    display: flex;
+    transition: 0.2s;
+}
+.chat_list_element:hover{
+    background-color: #474747;
+}
+
+.chat_list_element_image{
+    width: 50px;
+    height: 50px;
+    margin-left: 10px;
+    margin-top: 5px;
+    position: relative;
+    border-radius: 50%;
+}
+
+.chat_list_element_title{
+    position: relative;
+    margin-left: 15px;
+    margin-top: 10px;
+    
 }

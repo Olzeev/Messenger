@@ -9,12 +9,22 @@
 {% block content %} 
 {% csrf_token %} 
 
-<input id="search_input">
-<div class="chat_list_box">
-    <ul id="chat_list" class="chat_list">
 
+<div class="chat_list">
+    <input id="search_input">
+
+
+    <ul id="chat_list">
+    
     </ul>
 </div>
+
+<div style="border: 2px solid red; margin-left: 400px; height: 100vh">
+
+</div>
+
+
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="{% static 'main/js/main.js' %}"></script>
