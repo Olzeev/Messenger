@@ -1,0 +1,108 @@
+@font-face {
+    font-family: 'Inter'; /*a name to be used later*/
+    src: url('../fonts/Inter-Regular.ttf'); /*URL to font*/
+}
+@font-face {
+    font-family: 'Inter-bold'; /*a name to be used later*/
+    src: url('../fonts/Inter-Bold.ttf'); /*URL to font*/
+}
+body{
+    background-color:#252525;
+}
+
+.sign_up_title{
+    font-family: 'Inter';
+    color: #BE9E79;
+    position: relative;
+    text-align: center;
+    
+}
+
+.sign_up_input{
+    display: block;
+    width: 300px;
+    height: 40px;
+    margin: 15px auto;
+    background-color: #252525;
+    border: 2px solid rgb(100, 100, 100);
+    color: white;
+    font-size: 12pt;
+    border-radius: 7px;
+    padding-left: 5px;
+}
+.sign_up_input:focus{
+    outline: none !important;
+    border: 2px solid #BE9E79;
+}
+
+.sign_up_button{
+    display: block;
+    width: 200px;
+    height: 50px;
+    margin: 0 auto;
+    background-color: #BE9E79;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    transition: 0.2s;
+}
+.sign_up_button:hover{
+    background-color: #665541;
+    color: grey;
+}
+
+.sign_up_button_text{
+    font-size: 12pt;
+    font-family: 'Inter';
+}
+
+.sign_in_button{
+    display: block;
+    width: 150px;
+    height: 50px;
+    margin: 0 auto;
+    background-color: #BE9E79;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    transition: 0.2s;
+}
+.sign_in_button:hover{
+    background-color: #665541;
+    color: grey;
+}
+
+.sign_in_button_text{
+    font-size: 12pt;
+    font-family: 'Inter';
+}
+
+.error{
+    position: relative;
+    margin: 10px auto;
+    width: 300px;
+    display: block;
+    color: red;
+    font-family: 'Inter';
+}
+
+body{
+    overflow: hidden;
+}
+
+.chat_list_box{
+    display: block;
+    position: relative;
+    width: 400px;
+    border: 2px solid red;
+}
+
+.chat_list{
+    list-style-type:none;
+}
+
+.chat_list_element{
+    font-family: 'Inter';
+    color: white;
+    text-decoration: none;
+}

@@ -1,0 +1,30 @@
+{% extends 'main/header.html' %} 
+
+{% load static %} 
+
+{% block title %} 
+Вход
+{% endblock %} 
+
+{% block content %} 
+{% csrf_token %} 
+
+<h2 class="sign_up_title">Вход</h2>
+<form method="post" action="{% url 'sign_in' %}">
+    {% csrf_token %}
+    <input placeholder="Эл.почта" class="sign_up_input" name="email" type="email" maxlength="30">
+    <input placeholder="Пароль" class="sign_up_input" name="password" type="password" maxlength="30">
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+   
+    <button type="submit" class="sign_in_button"> 
+        <p class="sign_in_button_text">Войти</p>
+    </button>
+    <p style="width: 300px; margin: 10px auto; color: white; font-family: 'Inter';">
+        Еще нет аккунта?
+        <a href="{% url 'sign_up' %}" style="text-decoration: none; color: #BE9E79">Зарегистрироваться</a>
+    </p>
+</form>
+
+{% endblock %} 
