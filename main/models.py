@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 class User_blocked(models.Model):
     user_id = models.CharField(max_length=10)
@@ -15,9 +16,9 @@ class User_blocked(models.Model):
 class Message(models.Model):
     id_sender = models.CharField(max_length=10)
     id_reciever = models.CharField(max_length=10)
-    text = models.TextField()
-    time = models.DateField()
-    attached_file = models.FileField()
+    text = models.TextField(default='')
+    time = models.DateField(default=timezone.now())
+    attached_file = models.FileField(default='')
 
     def __str__(self):
         return f"{self.id_sender}->{self.id_reciever}, {self.time}"
@@ -30,12 +31,12 @@ class Message(models.Model):
 
 class User_info(models.Model):
     user_info_id = models.CharField(max_length=10)
-    #avatar = models.FileField()
-    status = models.TextField()
-    last_online_time = models.DateField()
+    avatar = models.ImageField(upload_to=f'user_avatars/', default='user_avatars/default/default_avatar.jpg')
+    status = models.TextField(default='')
+    last_online_time = models.DateField(default=timezone.now())
 
     def __str__(self):
-        return f"{self.user_name_id}"
+        return f"{self.user_info_id}"
     
     class Meta:
         verbose_name = "User info"
@@ -46,7 +47,7 @@ class Group(models.Model):
     group_id = models.CharField(max_length=10)
     name = models.CharField(max_length=30)
     #avatar = models.FileField()
-    description = models.TextField()
+    description = models.TextField(default='')
 
     def __str__(self):
         return f"{self.group_id} ({self.name})"

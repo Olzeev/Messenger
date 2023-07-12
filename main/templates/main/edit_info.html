@@ -1,0 +1,44 @@
+{% extends 'main/header.html' %} 
+
+{% load static %} 
+
+{% block title %} 
+Чат
+{% endblock %} 
+
+{% block content %} 
+{% csrf_token %} 
+
+<h1 class="edit_info_title">Редактирование профиля</h1>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input placeholder="Имя пользователя" name="username" max_length="30" class="edit-info-username-input">
+    <input placeholder="Статус" name="status" type="text" maxlength="100" class="edit-info-status-input">
+
+    <p class="edit-info-avatar-title">Аватар:</p>
+    <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script src="{% static 'main/js/main.js' %}"></script>
+    <div class="image_upload">
+        <div class="image-upload-wrap">
+            <input class="file-upload-input" type='file' onchange="readURL(this)" name="avatar" accept="image/*" />
+            
+            <p class="drag-text">Перетащите сюда или выберите файлы</p>
+            
+        </div>
+        <div class="file-upload-content">
+            <img class="file-upload-image" src="#" alt="your image" />
+            <div class="image-title-wrap">
+                <button type="button" onclick="removeUpload()" class="remove-image">Убрать</button>
+            </div>
+        </div>
+        <div>
+            <button type="submit" class="edit-info-button-save" id="button_save">Сохранить</button>
+        </div>
+        
+    </div>
+    
+
+    
+</form>
+
+{% endblock %} 

@@ -16,7 +16,7 @@ body{
     color: #BE9E79;
     position: relative;
     text-align: center;
-    
+    margin-top: 20px;
 }
 
 .sign_up_input{
@@ -87,6 +87,7 @@ body{
     font-family: 'Inter';
 }
 
+
 body{
     overflow: hidden;
 }
@@ -94,7 +95,6 @@ body{
 .chat_list{
     list-style-type:none;
     display: block;
-    border: 2px solid yellow;
     box-shadow: 5px 0 20px black;
     width: 400px;
     position: relative;
@@ -117,12 +117,13 @@ body{
 }
 
 .chat_list_element_image{
-    width: 50px;
-    height: 50px;
-    margin-left: 10px;
-    margin-top: 5px;
-    position: relative;
+    object-fit: cover;
     border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    position: relative;
+    top: 5px;
+    left: 5px;
 }
 
 .chat_list_element_title{
@@ -130,4 +131,182 @@ body{
     margin-left: 15px;
     margin-top: 10px;
     
+}
+
+.image_upload{
+    position: relative;
+    display: block;
+    width: 400px;
+    margin: 0 auto;
+}
+
+.file-upload {
+    background-color: #ffffff;
+    width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+  
+.file-upload-content {
+    display: none;
+    width: 400px;
+    height: 150px;
+    text-align: center;
+}
+
+.file-upload-input {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.image-upload-wrap {
+    display: block;
+    width: 400px;
+    height: 150px;
+    margin-top: 20px;
+    border: 2px dashed #BE9E79;
+    border-radius: 20px;
+    position: relative;
+    transition: 0.3s;
+}
+
+.image-dropping,
+.image-upload-wrap:hover {
+    background-color: rgb(80, 80, 80);
+    border: 2px dashed #ffffff;
+}
+
+.image-title-wrap {
+    padding: 0 15px 15px 15px;
+    color: #222;
+}
+
+.drag-text {
+    text-align: center;
+    position: relative;
+    top: 40%;
+    color:#BE9E79;
+    font-family: 'Inter';
+    font-size: 12pt;
+}
+
+.file-upload-image {
+    height: 200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.remove-image {
+    width: 200px;
+    margin: 0;
+    color: #fff;
+    background: #cd4535;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    border-bottom: 4px solid #b02818;
+    transition: all .2s ease;
+    outline: none;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.remove-image:hover {
+    background: #c13b2a;
+    color: #ffffff;
+    transition: all .2s ease;
+    cursor: pointer;
+}
+
+.remove-image:active {
+    border: 0;
+    transition: all .2s ease;
+}
+
+.edit-info-button-save{
+    display: block;
+    position: relative;
+    width: 100px;
+    height: 50px;
+    margin: 20px auto;
+    top: 140px;
+    background-color: #BE9E79;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    transition: 0.2s;
+}
+.edit-info-button-save:hover{
+    background-color: #665541;
+    color: grey;
+}
+
+.edit_info_title{
+    margin-top: 50px;
+    text-align: center;
+    color: #BE9E79;
+    font-family: 'Inter';
+}
+
+.edit-info-username-input{
+    display: block;
+    background-color: #252525;
+    border: 2px solid #BE9E79;
+    border-radius: 10px;
+    width: 300px;
+    height: 50px;
+    margin: 40px auto;
+    color: white;
+    font-size: 15pt;
+    padding-left: 10px;
+}
+
+.edit-info-status-input{
+    display: block;
+    background-color: #252525;
+    border: 2px solid #BE9E79;
+    border-radius: 10px;
+    width: 400px;
+    height: 50px;
+    margin: 0 auto;
+    color: white;
+    font-size: 15pt;
+    padding-left: 10px;
+}
+
+.edit-info-avatar-title{
+    width: 400px;
+    display: block;
+    margin: 0 auto;
+    margin-top: 20px;
+    color: white;
+    font-family: 'Inter';
+    font-size: 15pt;
+}
+
+.search-input{
+    width: 100%;
+    height: 40px;
+    position: relative;
+    margin-left: 10px;
+    font-size: 12pt;
+    font-family: 'Inter';
+    background-color: #252525;
+    border: none;
+    color: white;
+    padding-left: 5px;
+}
+
+.chat_list_element_text{
+    position: relative;
+    left: 15px;
+    top: 5px;
+    color: grey;
+    font-size: 10pt;
 }

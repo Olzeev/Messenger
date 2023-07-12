@@ -11,7 +11,11 @@
 
 
 <div class="chat_list">
-    <input id="search_input">
+    <div style="display: flex">
+        <img src="{% static 'main/png/search_icon.png' %}" style="width: 30px; height: 30px; margin-left: 5px; margin-top: 5px;">
+        <input id="search_input" class="search-input" placeholder="Поиск...">
+    </div>
+    
 
 
     <ul id="chat_list">

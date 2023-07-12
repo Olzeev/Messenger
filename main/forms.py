@@ -1,4 +1,5 @@
 from django import forms
+from .models import *
 
 class SignInForm(forms.Form):
     class Meta:
@@ -48,3 +49,6 @@ class SignUpForm(forms.Form):
         }
         
         
+class EditInfoForm(forms.Form):
+    class Meta:
+        fields = ["username", "avatar", "status"]

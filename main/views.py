@@ -49,9 +49,10 @@ def sign_up(request):
             
             user = django_models.User.objects.create_user(username=form.data["email"], password=form.data["password"])
             login(request, user)
-            #user_info = User_info(username=form.data["email"])
-            #user_info.save()
-            return redirect('main')
+            user_info = User_info(user_info_id=request.user.id)
+            
+            user_info.save()
+            return redirect('edit_info')
     else:
         form = SignUpForm()
     return render(request, 'main/sign_up.html', { 'error': error })
@@ -69,8 +70,35 @@ class SearchPersonView(View):
         User = get_user_model()
         users = User.objects.all()
         for user in users:
-            if text in user.username:
-                users_found.append(user.username)
+            if text in user.first_name:
+                
+                user_info = User_info.objects.get(user_info_id=user.id)
+                status = user_info.status
+                avatar = user_info.avatar
+                print(avatar.url)
+                users_found.append([user.first_name, status, avatar.url])
         return JsonResponse({'users_found': users_found}, status=200)
 
         #return render(request, 'main/index.html')
+
+
+def edit_info(request):
+    if request.method == "POST":
+        form = EditInfoForm(request.POST, request.FILES)
+        if form.is_valid():
+            user_info = User_info.objects.get(user_info_id=request.user.id)
+            user_info.status = form.data["status"]
+            if form.data["username"]:
+                request.user.first_name = form.data["username"]
+            else:
+                request.user.first_name = f"User{request.user.id}"
+            request.user.save()
+            if len(request.FILES) != 0:
+                user_info.avatar = request.FILES["avatar"]
+            else:
+                user_info.avatar = "user_avatars/default/default_avatar.jpg"
+            user_info.save()
+            return redirect('main')
+    else:
+        form = EditInfoForm()
+    return render(request,"main/edit_info.html")
