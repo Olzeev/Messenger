@@ -11,7 +11,7 @@ $(document).ready(function() {
                 $('#chat_list').empty()
                 for (let i = 0; i < response.users_found.length; i++){
                     user = response.users_found[i]
-                    $("#chat_list").append(`<li class="chat_list_element">
+                    $("#chat_list").append(`<li class="chat_list_element" id="chat_list_element" onclick="show_chat()">
                                                 <img class="chat_list_element_image" src="${user[2]}">
                                                 <div>
                                                     <p class="chat_list_element_title">${user[0]}</p>
@@ -61,3 +61,16 @@ $('.image-upload-wrap').bind('dragover', function () {
 $('.image-upload-wrap').bind('dragleave', function () {
     $('.image-upload-wrap').removeClass('image-dropping');
 });
+
+
+
+
+function show_chat(){
+    chat = document.getElementById('chat');
+    chat.style.marginLeft = "400px";
+}
+
+function hide_chat(){
+    chat = document.getElementById('chat');
+    chat.style.marginLeft = "100%";
+}
