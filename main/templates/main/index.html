@@ -9,30 +9,93 @@
 {% block content %} 
 {% csrf_token %} 
 
-
-<div class="chat_list">
-    <div style="display: flex">
-        <img src="{% static 'main/png/search_icon.png' %}" style="width: 30px; height: 30px; margin-left: 5px; margin-top: 5px;">
-        <input id="search_input" class="search-input" placeholder="Поиск...">
+<div id="main-content">
+    <div class="no-chat">
+        <div class="no-chat-message" id="no-chat-message">
+    
+        </div>
     </div>
+    <div class="chat" id="chat">
+        
+        <div class="chat-title">
+            <img src="{% static 'main/png/left_arrow.png' %}" class="chat-title-exit-button" id="exit_chat">
+            <img class="chat-title-avatar" id="avatar" onclick="show_profile()">
+            <p id="chat-title-text" onclick="show_profile()"></p>
+        </div>  
+        <div class="chat-panel" id="chat-panel">
+            <img src="{% static 'main/png/Attachment_icon.png' %}" class="chat-panel-attach">
+            
+            <input class="chat-panel-input" placeholder="Сообщение..." id="chat-input">
+            
+            <img src="{% static 'main/png/emoji_icon.png' %}" class="chat-panel-emoji">
+            <img src="{% static 'main/png/micro_icon.png' %}" class="chat-panel-micro">
+            <img src="{% static 'main/png/send_icon.png' %}" class="chat-panel-send">
+        </div>
+    </div>
+    <div class="chat_list">
+        <div style="display: flex">
+            <img src="{% static 'main/png/search_icon.png' %}" style="width: 30px; height: 30px; margin-left: 5px; margin-top: 5px;">
+            <input id="search_input" class="search-input" placeholder="Поиск...">
+        </div>
+        
     
-
-    <nav>
-        <ul id="chat_list">
-    
-        </ul>
-    </nav>
-    
+        <nav>
+            <ul id="chat_list">
+                {% for user in users %}
+                    <li class="chat_list_element" id="chat_list_element_{{ user.4 }}" onclick="show_chat('{{ user.2 }}', '{{user.0}}', '{{user.1}}', '{{user.3}}', 
+                    '{{ user.4 }}', '{{ length }}')">
+                        <img class="chat_list_element_image" src="{{ user.2 }}">
+                        <div>
+                            <p class="chat_list_element_title">{{ user.0 }}</p>
+                            <p class="chat_list_element_text">{{ user.1 }}</p>
+                        </div>
+                        
+                    </li>
+                {% endfor %}
+            </ul>
+        </nav>
+        
+    </div>
+    <div class="user_info" id="user_info">
+        <img src="{{ avatar }}" class="user_info_avatar">
+        <p class="user_info_username">{{ username }}</p>
+        <a>
+            <img src="{% static 'main/png/settings.svg' %}" class="user_info_settings">
+        </a>
+        
+    </div>
 </div>
 
-<div class="chat" id="chat">
-    
-    <div class="chat-title">
-        <img src="{% static 'main/png/left_arrow.png' %}" class="chat-title-exit-button" onclick="hide_chat()">
-    </div>  
+
+
+
+<div class="profile_bg" id="profile">
+    <div class="profile_window">
+        <div style="display: flex">
+            <img class="profile-avatar" id="profile-avatar">
+            <h3 class="profile-username" id="profile-username"></h3>
+            <img src="{% static 'main/png/exit_icon.svg' %}" 
+                style="display: block; width: 15px; height: 15px; position: absolute; right: 10px; top: 10px; cursor: pointer" 
+                onclick="hide_profile()">
+        </div>
+        <p class="profile-text" id="profile-status" style="margin-top: 40px;"></p>
+        <p class="profile-hint">Статус</p>
+        <p class="profile-text" id="profile-id"></p>
+        <p class="profile-hint">ID</p>
+        <div style="display: flex; position :relative; left: 25px; margin-top: 20px;">
+            <img src="{% static 'main/png/file_icon.png' %}" class="profile-image">
+            <p class="profile-text-file">Файлы</p>
+        </div>
+        <div style="display: flex; position: absolute; left: 27px; bottom: 60px;">
+            <img src="{% static 'main/png/block_icon.svg' %}" class="profile-image-dangerous">
+            <p class="profile-text-dangerous">Заблокировать</p>
+        </div>
+        <div style="display: flex; position: absolute; left: 27px; bottom: 20px;">
+            <img src="{% static 'main/png/clean_icon.svg' %}" class="profile-image-dangerous">
+            <p class="profile-text-dangerous">Очистить историю</p>
+        </div>
+    </div>
 </div>
-
-
 
 
 

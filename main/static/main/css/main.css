@@ -98,6 +98,7 @@ body{
     box-shadow: 5px 0 20px black;
     width: 400px;
     position: relative;
+    top: -200vh;
     float: left;
 }
 
@@ -198,7 +199,7 @@ body{
 }
 
 .file-upload-image {
-    height: 200px;
+    height: 150px;
     margin: 0 auto;
     padding: 20px;
 }
@@ -236,7 +237,7 @@ body{
     width: 100px;
     height: 50px;
     margin: 20px auto;
-    top: 140px;
+    top: 80px;
     background-color: #BE9E79;
     border: none;
     border-radius: 10px;
@@ -249,7 +250,7 @@ body{
 }
 
 .edit_info_title{
-    margin-top: 50px;
+    margin-top: 20px;
     text-align: center;
     color: #BE9E79;
     font-family: 'Inter';
@@ -261,8 +262,8 @@ body{
     border: 2px solid #BE9E79;
     border-radius: 10px;
     width: 300px;
-    height: 50px;
-    margin: 40px auto;
+    height: 40px;
+    margin: 10px auto;
     color: white;
     font-size: 15pt;
     padding-left: 10px;
@@ -274,7 +275,7 @@ body{
     border: 2px solid #BE9E79;
     border-radius: 10px;
     width: 400px;
-    height: 50px;
+    height: 40px;
     margin: 0 auto;
     color: white;
     font-size: 15pt;
@@ -291,6 +292,12 @@ body{
     font-size: 15pt;
 }
 
+.edit-info-avatar-current{
+    display: block;
+    height: 150px;
+    margin: 10px auto;
+}
+
 .search-input{
     width: 100%;
     height: 40px;
@@ -302,6 +309,7 @@ body{
     border: none;
     color: white;
     padding-left: 5px;
+    outline: none;
 }
 
 .chat_list_element_text{
@@ -310,10 +318,13 @@ body{
     top: 5px;
     color: grey;
     font-size: 10pt;
+    width: 330px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .chat-title{
-    display: block;
+    display: flex;
     width: 100%;
     height: 50px;
     background-color: #42362E;
@@ -321,19 +332,29 @@ body{
 }
 
 .no-chat{
+    height: 100vh;
+    margin-left: 400px;
+    position: relative;
+    top: 0vh;
+}
+
+.no-chat-message{
+    display: block;
     width: 300px;
     height: 300px;
-    border: 2px solid yellow;
+    margin: 0 auto;
     position: relative;
+    top: 200px;
+    border: 2px solid yellow;
 }
 
 .chat{
-    border: 2px solid red; 
     height: 100vh;
     margin-left: 100%;
     transition: 0.5s all ease;
-    position :relative;
-    
+    position: relative;
+    top: -100vh;
+    background-color: #252525;
 }
 
 .chat-title-exit-button{
@@ -344,4 +365,220 @@ body{
     position: relative;
     margin-left: 10px;
     cursor: pointer;
+}
+
+.chat-title-avatar{
+    object-fit: cover;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    position: relative;
+    top: 5px;
+    left: 20px;
+    cursor: pointer;
+}
+
+#chat-title-text{
+    position: relative;
+    font-size: 13pt;
+    left: 30px;
+    top: 15px;
+    font-family: 'Inter';
+    color: white;
+    cursor: pointer;
+}
+
+.chat-panel{
+    display: flex;
+    width: 100%;
+    height: 40px;
+    background-color: #313131;
+    position: absolute;
+    bottom: 0;
+}
+
+.chat-panel-attach{
+    display: block;
+    height: 30px;
+    width: 30px;
+    margin-left: 5px;
+    position: relative;
+    top: 5px;
+    cursor: pointer;
+}
+
+.chat-panel-input{
+    margin-left: 5px;
+    background-color: #313131;
+    color: white;
+    padding-left: 10px;
+    font-size: 12pt;
+    outline: none;
+    border: none;
+}
+.chat-panel-emoji{
+    display: block;
+    height: 26px;
+    width: 26px;
+    margin-left: 8px;
+    position: relative;
+    top: 8px;
+    cursor: pointer;
+}
+
+.chat-panel-micro{
+    display: block;
+    height: 30px;
+    width: 30px;
+    margin-left: 10px;
+    position: relative;
+    top: 5px;
+    cursor: pointer;
+}
+
+.chat-panel-send{
+    display: block;
+    height: 30px;
+    width: 30px;
+    margin-left: 10px;
+    position: relative;
+    top: 5px;
+    cursor: pointer;
+}
+
+.profile_bg{
+    width: 100%;
+    height: 100vh;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.3s, opacity 0.3s linear;
+}
+
+.profile_window{
+    width: 30%;
+    height: 40%;
+    min-width: 400px;
+    min-height: 500px;
+    display: block;
+    background-color: #464646;
+    position: relative;
+    margin: 0 auto;
+    top: 100px;
+    border-radius: 10px;
+}
+
+#main-content{
+    transition: 0.5s;
+}
+
+.profile-avatar{
+    object-fit: cover;
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    position: relative;
+    top: 20px;
+    left: 20px;
+}
+
+.profile-username{
+    font-family: 'Inter';
+    color: white;
+    font-size: 15pt;
+    position: relative;
+    left: 50px;
+    top: 45px;
+    
+}
+
+.profile-text{
+    font-family: 'Inter';
+    color: white;
+    font-size: 12pt;
+    position: relative;
+    left: 30px;
+    margin-top: 20px;
+    width: 90%;
+    overflow-wrap: break-word;
+}
+
+.profile-hint{
+    font-family: 'Inter';
+    color: #9F9F9F;
+    font-size: 12pt;
+    position: relative;
+    left: 30px;
+    margin-top: 5px;
+}
+
+.profile-image{
+    display: block;
+    width: 30px;
+    height: 30px;
+    position: relative;
+}
+.profile-text-file{
+    font-family: 'Inter';
+    color: #BE9E79;
+    font-size: 12pt;
+    position: relative;
+    left: 10px;
+    top: 5px;
+}
+
+.profile-image-dangerous{
+    display: block;
+    width: 25px;
+    height: 25px;
+    position: relative;
+}
+
+.profile-text-dangerous{
+    color: #FF4444;
+    font-family: 'Inter';
+    font-size: 12pt;
+    position: relative;
+    left: 12px;
+    top: 2px;
+}
+
+.user_info{
+    display: flex;
+    background-color: #42362E;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 400px;
+    height: 50px;
+}
+
+.user_info_avatar{
+    object-fit: cover;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    position: relative;
+    margin-top: 5px;
+    margin-left: 5px;
+}
+
+.user_info_username{
+    font-family: 'Inter';
+    color: white;
+    font-size: 13pt;
+    position: relative;
+    left: 10px;
+    top: 15px; 
+}
+
+.user_info_settings{
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
 }

@@ -7,11 +7,40 @@ from .models import *
 from django.views.generic import View
 from django.http import JsonResponse
 
+
+def find_last_communicated(request):
+    messages = (Message.objects.filter(id_sender=request.user.id) | Message.objects.filter(id_reciever=request.user.id)).order_by("-time")
+    users = []
+
+    for message in messages:
+        if int(message.id_sender) == request.user.id:
+            if message.id_reciever not in users:
+                users.append(message.id_reciever)
+        elif int(message.id_reciever) == request.user.id:
+            if message.id_sender not in users:
+                users.append(message.id_sender)
+                
+    users_found = []
+
+    index = 0
+    for user_id in users:
+        user = get_user_model().objects.get(id=user_id)
+        user_info = User_info.objects.get(user_info_id=user_id)
+
+        users_found.append([user.first_name, user_info.status, user_info.avatar.url, user.id, index])
+        index += 1
+    return users_found
+
+
 def index(request):
     if not request.user.is_authenticated:
         return redirect('sign_in')
     else:
-        return render(request, 'main/index.html')
+        users_found = find_last_communicated(request)
+        return render(request, 'main/index.html', {"users": users_found, 
+                                                   "length": len(users_found), 
+                                                   "username": request.user.first_name, 
+                                                   "avatar": User_info.objects.get(user_info_id=request.user.id).avatar.url})
     
 
 def sign_in(request):
@@ -22,7 +51,6 @@ def sign_in(request):
             user = authenticate(request, username=form.data['email'], password=form.data["password"])
             if user is not None:
                 login(request, user)
-                print('aowiejfoiwjef')
                 return redirect('main')
             else:
                 error = 'Неверная эл.почта или пароль!'
@@ -65,21 +93,32 @@ def log_out(request):
 class SearchPersonView(View):
     def get(self, request):
         text = request.GET.get('search_input_text')
-        
+        if not text:
+            users_found = find_last_communicated(request)
+
+            return JsonResponse({'users_found': users_found}, status=200)
         users_found = []
         User = get_user_model()
         users = User.objects.all()
         for user in users:
-            if text in user.first_name:
+            if text in user.first_name and user.id != request.user.id:
                 
                 user_info = User_info.objects.get(user_info_id=user.id)
                 status = user_info.status
                 avatar = user_info.avatar
-                print(avatar.url)
-                users_found.append([user.first_name, status, avatar.url])
+                users_found.append([user.first_name, status, avatar.url, user.id])
         return JsonResponse({'users_found': users_found}, status=200)
 
         #return render(request, 'main/index.html')
+
+class SendMessageView(View):
+    def get(self, request):
+        text = request.GET.get('message_text')
+        id_reciever = request.GET.get('id')[1:]
+        message = Message(id_sender=request.user.id, id_reciever=id_reciever, text=text, time=timezone.now())
+        message.save()
+        return JsonResponse({}, status=200)
+
 
 
 def edit_info(request):
@@ -95,10 +134,14 @@ def edit_info(request):
             request.user.save()
             if len(request.FILES) != 0:
                 user_info.avatar = request.FILES["avatar"]
-            else:
-                user_info.avatar = "user_avatars/default/default_avatar.jpg"
             user_info.save()
             return redirect('main')
     else:
         form = EditInfoForm()
-    return render(request,"main/edit_info.html")
+        username = request.user.first_name
+        user_info = User_info.objects.get(user_info_id=request.user.id)
+        status = user_info.status
+        avatar = user_info.avatar
+    return render(request,"main/edit_info.html", {'username': username, 
+                                                  "status": status, 
+                                                  'avatar': avatar})
