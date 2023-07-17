@@ -117,9 +117,18 @@ class SendMessageView(View):
         id_reciever = request.GET.get('id')[1:]
         message = Message(id_sender=request.user.id, id_reciever=id_reciever, text=text, time=timezone.now())
         message.save()
-        return JsonResponse({}, status=200)
+        return JsonResponse({'time': timezone.now()}, status=200)
 
 
+class GetMessagesView(View):
+    def get(self, request):
+        id_with = request.GET.get('id')
+        
+        messages = (Message.objects.filter(id_sender=str(request.user.id), id_reciever=id_with) | Message.objects.filter(id_reciever=str(request.user.id), id_sender=id_with))
+        messages_send = []
+        for message in messages:
+            messages_send.append([message.text, message.time, 1 if message.id_sender==str(request.user.id) else 0])
+        return JsonResponse({'messages': messages_send}, status=200)
 
 def edit_info(request):
     if request.method == "POST":

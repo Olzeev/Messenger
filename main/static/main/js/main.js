@@ -1,4 +1,20 @@
 $(document).ready(function() {
+    let url = `ws://${window.location.host}/ws/socket-server/`
+    const chatSocket = new WebSocket(url)
+    chatSocket.onmessage = function(e){
+        let data = JSON.parse(e.data)
+        if (data.type === 'chat'){
+            
+            $('#messages').append(
+                `<li class="message">
+                    <p class="message-box-${data.sender}">${data.message}</p>
+                    
+                </li>`
+            )  
+            $('#messages').animate({scrollTop: 9999})
+        }
+    }
+
     $(document.getElementById("search_input")).change(function(){
         $.ajax({
             url: 'search_person', 
@@ -25,6 +41,7 @@ $(document).ready(function() {
         });
     });
     $(document.getElementById('chat-input')).change(function (){
+
         $.ajax({
             url: 'send_message', 
             type: 'get', 
@@ -34,13 +51,29 @@ $(document).ready(function() {
                 csrfmiddlewaretoken: '{{ csrf_token }}'
             }, 
             success: function(response){
+
+                chatSocket.send(JSON.stringify({
+                    message: document.getElementById("chat-input").value,
+                    time: response.time
+                    
+                }))
                 document.getElementById("chat-input").value = ""
             }
         })
+    
+        
     })
     
 });
 
+
+function resize(){
+    document.getElementById('messages').style.height = (parseInt(window.innerHeight) - 100).toString() + "px"
+    document.getElementById('chat-input').style.width = (window.innerWidth - 120 - 40).toString() + "px"
+    $('#messages').animate({scrollTop: 9999})
+}
+$(window).on("resize", resize);
+resize(); // call once initially
 
 
 function readURL(input) {
@@ -80,15 +113,37 @@ $('.image-upload-wrap').bind('dragleave', function () {
 
 
 
-
-
 function show_chat(avatar, username, status, id, chat_list_index, chat_list_length){
+    $.ajax({
+        url: 'get_messages', 
+        type: 'get', 
+        data: {
+            id: id,  
+            csrfmiddlewaretoken: '{{ csrf_token }}'
+        }, 
+        success: function(response){
+            
+            $('#messages').empty()
+            $('#messages').animate({scrollTop: 9999})
+            messages = response.messages
+            for (let i = 0; i < messages.length; ++i){
+                $('#messages').append(
+                    `<li class="message">
+                        <p class="message-box-${messages[i][2]}">${messages[i][0]}</p>
+                        
+                    </li>`
+                )  
+
+            }
+        }
+    })
+
     chat = document.getElementById('chat');
     chat.style.marginLeft = "400px";
 
     document.getElementById('avatar').src = avatar;
     document.getElementById('chat-title-text').textContent = username
-    document.getElementById('chat-input').style.width = (window.screen.width - 400 - 250).toString() + "px"
+    
     document.getElementById('profile-avatar').src = avatar;
     document.getElementById('profile-status').textContent = status
     document.getElementById('profile-id').textContent = "@" + id
@@ -130,3 +185,5 @@ function hide_profile(){
     document.getElementById('profile').style.opacity = "0";
     document.getElementById('main-content').style.filter = "blur(0px)"
 }
+
+

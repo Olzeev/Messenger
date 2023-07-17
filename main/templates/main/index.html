@@ -10,11 +10,13 @@
 {% csrf_token %} 
 
 <div id="main-content">
+    
     <div class="no-chat">
         <div class="no-chat-message" id="no-chat-message">
     
         </div>
     </div>
+    
     <div class="chat" id="chat">
         
         <div class="chat-title">
@@ -22,6 +24,8 @@
             <img class="chat-title-avatar" id="avatar" onclick="show_profile()">
             <p id="chat-title-text" onclick="show_profile()"></p>
         </div>  
+        
+            
         <div class="chat-panel" id="chat-panel">
             <img src="{% static 'main/png/Attachment_icon.png' %}" class="chat-panel-attach">
             
@@ -31,8 +35,23 @@
             <img src="{% static 'main/png/micro_icon.png' %}" class="chat-panel-micro">
             <img src="{% static 'main/png/send_icon.png' %}" class="chat-panel-send">
         </div>
+        
+            <ul id="messages" class="messages_list">
+
+            </ul>
+        
+        
+        
     </div>
     <div class="chat_list">
+        <div class="user_info" id="user_info">
+            <img src="{{ avatar }}" class="user_info_avatar">
+            <p class="user_info_username">{{ username }}</p>
+            <a>
+                <img src="{% static 'main/png/settings.svg' %}" class="user_info_settings">
+            </a>
+            
+        </div>
         <div style="display: flex">
             <img src="{% static 'main/png/search_icon.png' %}" style="width: 30px; height: 30px; margin-left: 5px; margin-top: 5px;">
             <input id="search_input" class="search-input" placeholder="Поиск...">
@@ -56,14 +75,7 @@
         </nav>
         
     </div>
-    <div class="user_info" id="user_info">
-        <img src="{{ avatar }}" class="user_info_avatar">
-        <p class="user_info_username">{{ username }}</p>
-        <a>
-            <img src="{% static 'main/png/settings.svg' %}" class="user_info_settings">
-        </a>
-        
-    </div>
+    
 </div>
 
 
