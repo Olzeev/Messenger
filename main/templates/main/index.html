@@ -28,7 +28,6 @@
             
         <div class="chat-panel" id="chat-panel">
             <img src="{% static 'main/png/Attachment_icon.png' %}" class="chat-panel-attach">
-            
             <input class="chat-panel-input" placeholder="Сообщение..." id="chat-input">
             
             <img src="{% static 'main/png/emoji_icon.png' %}" class="chat-panel-emoji">
@@ -36,9 +35,9 @@
             <img src="{% static 'main/png/send_icon.png' %}" class="chat-panel-send">
         </div>
         
-            <ul id="messages" class="messages_list">
+        <ul id="messages" class="messages_list">
 
-            </ul>
+        </ul>
         
         
         
@@ -98,14 +97,14 @@
             <img src="{% static 'main/png/file_icon.png' %}" class="profile-image">
             <p class="profile-text-file">Файлы</p>
         </div>
-        <div style="display: flex; position: absolute; left: 27px; bottom: 60px;">
-            <img src="{% static 'main/png/block_icon.svg' %}" class="profile-image-dangerous">
-            <p class="profile-text-dangerous">Заблокировать</p>
-        </div>
-        <div style="display: flex; position: absolute; left: 27px; bottom: 20px;">
+        <a style="display: flex; position: absolute; left: 27px; bottom: 60px; cursor: pointer;" id='block_user' onclick="block_user( '{{ user_id }}' )" >
+            <img src="{% static 'main/png/block_icon.svg' %}" class="profile-image-dangerous" id="block_user_image">
+            <p class="profile-text-dangerous" id="block_user_text">Заблокировать</p>
+        </a>
+        <a style="display: flex; position: absolute; left: 27px; bottom: 20px;">
             <img src="{% static 'main/png/clean_icon.svg' %}" class="profile-image-dangerous">
             <p class="profile-text-dangerous">Очистить историю</p>
-        </div>
+        </a>
     </div>
 </div>
 

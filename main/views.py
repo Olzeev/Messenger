@@ -40,7 +40,10 @@ def index(request):
         return render(request, 'main/index.html', {"users": users_found, 
                                                    "length": len(users_found), 
                                                    "username": request.user.first_name, 
-                                                   "avatar": User_info.objects.get(user_info_id=request.user.id).avatar.url})
+                                                   "avatar": User_info.objects.get(user_info_id=request.user.id).avatar.url, 
+                                                   "user_id": request.user.id, 
+                                                   "blocked": False, 
+                                                   "is_blocked": False})
     
 
 def sign_in(request):
@@ -124,11 +127,40 @@ class GetMessagesView(View):
     def get(self, request):
         id_with = request.GET.get('id')
         
+        blocked = User_blocked.objects.filter(user_id=str(request.user.id), id_user_blocked=str(id_with)).exists()
+        is_blocked = User_blocked.objects.filter(user_id=str(id_with), id_user_blocked=str(request.user.id)).exists()
+
         messages = (Message.objects.filter(id_sender=str(request.user.id), id_reciever=id_with) | Message.objects.filter(id_reciever=str(request.user.id), id_sender=id_with))
         messages_send = []
         for message in messages:
             messages_send.append([message.text, message.time, 1 if message.id_sender==str(request.user.id) else 0])
-        return JsonResponse({'messages': messages_send}, status=200)
+        return JsonResponse({'messages': messages_send, 
+                            'blocked': blocked, 
+                            'is_blocked': is_blocked, 
+                            'user_id': str(request.user.id)}, status=200)
+
+
+class BlockUserView(View):
+    def get(self, request):
+        id_blocking = request.GET.get('user_id_blocking')
+        id_blocked = request.GET.get('user_id_blocked')
+
+        user_blocked = User_blocked(user_id=id_blocking, id_user_blocked=id_blocked)
+        user_blocked.save()
+        return JsonResponse({}, status=200)
+
+
+class UnblockUserView(View):
+    def get(self, request):
+        id_unblocking = request.GET.get('user_id_unblocking')
+        id_unblocked = request.GET.get('user_id_unblocked')
+
+        User_blocked.objects.get(user_id=id_unblocking, id_user_blocked=id_unblocked).delete()
+        is_blocked = User_blocked.objects.filter(user_id=id_unblocked, id_user_blocked=id_unblocking).exists()
+
+        return JsonResponse({'is_blocked': is_blocked}, status=200)
+
+        
 
 def edit_info(request):
     if request.method == "POST":

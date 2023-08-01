@@ -408,10 +408,11 @@ body{
 }
 
 .chat-panel-input{
-    margin-left: 5px;
     background-color: #313131;
     color: white;
     padding-left: 10px;
+    width: 100%;
+    position: relative;
     font-size: 12pt;
     outline: none;
     border: none;

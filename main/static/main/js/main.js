@@ -11,7 +11,10 @@ $(document).ready(function() {
                     
                 </li>`
             )  
-            $('#messages').animate({scrollTop: 9999})
+            $("#messages").animate({
+                scrollTop: $(
+                  '#messages').get(0).scrollHeight
+            }, 500);
         }
     }
 
@@ -70,7 +73,7 @@ $(document).ready(function() {
 function resize(){
     document.getElementById('messages').style.height = (parseInt(window.innerHeight) - 100).toString() + "px"
     document.getElementById('chat-input').style.width = (window.innerWidth - 120 - 40).toString() + "px"
-    $('#messages').animate({scrollTop: 9999})
+    
 }
 $(window).on("resize", resize);
 resize(); // call once initially
@@ -124,7 +127,7 @@ function show_chat(avatar, username, status, id, chat_list_index, chat_list_leng
         success: function(response){
             
             $('#messages').empty()
-            $('#messages').animate({scrollTop: 9999})
+            
             messages = response.messages
             for (let i = 0; i < messages.length; ++i){
                 $('#messages').append(
@@ -133,7 +136,28 @@ function show_chat(avatar, username, status, id, chat_list_index, chat_list_leng
                         
                     </li>`
                 )  
+            }
+            $("#messages").animate({
+                scrollTop: $(
+                  '#messages').get(0).scrollHeight
+            }, 1000);
 
+            if (response.blocked){
+                input = document.getElementById('chat-input')
+                input.disabled = true;
+                input.placeholder = 'Вы заблокировали этого пользователя'
+                input.style.textAlign = 'center'
+                document.getElementById('block_user_text').textContent = 'Разблокировать'
+                document.getElementById('block_user').onclick = function(){
+                    unblock_user(response.user_id)
+                }
+            } else{
+                if (response.is_blocked){
+                    input = document.getElementById('chat-input')
+                    input.disabled = true;
+                    input.placeholder = 'Пользователь ограничил общение с вами'
+                    input.style.textAlign = 'center'
+                }
             }
         }
     })
@@ -186,4 +210,65 @@ function hide_profile(){
     document.getElementById('main-content').style.filter = "blur(0px)"
 }
 
+function block_user(user_id_blocking){
+    user_id_blocked = document.getElementById('profile-id').textContent.substring(1)
+    $.ajax({
+        url: 'block_user', 
+        type: 'get', 
+        data: {
+            user_id_blocking: user_id_blocking, 
+            user_id_blocked: user_id_blocked, 
+            csrfmiddlewaretoken: '{{ csrf_token }}'
+        }, 
+        success: function(response){
+            element = document.getElementById('block_user')
+            element.onclick = function(){
+                unblock_user(user_id_blocking)
+            }
+            element_text = document.getElementById('block_user_text')
+            element_text.textContent = "Разблокировать"
+            
+            input = document.getElementById('chat-input')
+            input.disabled = true;
+            input.placeholder = 'Вы заблокировали этого пользователя'
+            input.style.color = '#FF4444'
+            input.style.textAlign = 'center'
+                
+            
+        }
+    })
+}
+function unblock_user(user_id_unblocking){
+    user_id_unblocked = document.getElementById('profile-id').textContent.substring(1)
+    $.ajax({
+        url: 'unblock_user', 
+        type: 'get', 
+        data: {
+            user_id_unblocking: user_id_unblocking, 
+            user_id_unblocked: user_id_unblocked, 
+            csrfmiddlewaretoken: '{{ csrf_token }}'
+        }, 
+        success: function(response){
+            element = document.getElementById('block_user')
+            element.onclick = function(){
+                block_user(user_id_unblocking)
+            }
+            element_text = document.getElementById('block_user_text')
+            element_text.textContent = "Заблокировать"
 
+            if (response.is_blocked){
+                input = document.getElementById('chat-input')
+                input.placeholder = 'Пользователь ограничил общение с вами'
+            } else{
+                input = document.getElementById('chat-input')
+                input.disabled = false;
+                input.placeholder = 'Сообщение...'
+                input.style.color = 'white'
+                input.style.textAlign = 'left'
+            }
+            
+                
+            
+        }
+    })
+}
