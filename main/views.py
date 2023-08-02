@@ -93,6 +93,39 @@ def log_out(request):
     logout(request)
     return redirect('sign_in')
 
+def edit_info(request):
+    if request.method == "POST":
+        form = EditInfoForm(request.POST, request.FILES)
+        if form.is_valid():
+            user_info = User_info.objects.get(user_info_id=request.user.id)
+            user_info.status = form.data["status"]
+            if form.data["username"]:
+                request.user.first_name = form.data["username"]
+            else:
+                request.user.first_name = f"User{request.user.id}"
+            request.user.save()
+            if len(request.FILES) != 0:
+                user_info.avatar = request.FILES["avatar"]
+            user_info.save()
+            return redirect('main')
+    else:
+        form = EditInfoForm()
+        username = request.user.first_name
+        user_info = User_info.objects.get(user_info_id=request.user.id)
+        status = user_info.status
+        avatar = user_info.avatar
+    return render(request,"main/edit_info.html", {'username': username, 
+                                                  "status": status, 
+                                                  'avatar': avatar})
+
+                                            
+def settings(request):
+    username = request.user.first_name
+    email = request.user.email
+    user_info = User_info.objects.get(user_info_id=str(request.user.id))
+    return render(request, 'main/settings.html', {'avatar': user_info.avatar, 
+                                                    'status': user_info.status})
+
 class SearchPersonView(View):
     def get(self, request):
         text = request.GET.get('search_input_text')
@@ -174,27 +207,4 @@ class ClearHistoryView(View):
 
         
 
-def edit_info(request):
-    if request.method == "POST":
-        form = EditInfoForm(request.POST, request.FILES)
-        if form.is_valid():
-            user_info = User_info.objects.get(user_info_id=request.user.id)
-            user_info.status = form.data["status"]
-            if form.data["username"]:
-                request.user.first_name = form.data["username"]
-            else:
-                request.user.first_name = f"User{request.user.id}"
-            request.user.save()
-            if len(request.FILES) != 0:
-                user_info.avatar = request.FILES["avatar"]
-            user_info.save()
-            return redirect('main')
-    else:
-        form = EditInfoForm()
-        username = request.user.first_name
-        user_info = User_info.objects.get(user_info_id=request.user.id)
-        status = user_info.status
-        avatar = user_info.avatar
-    return render(request,"main/edit_info.html", {'username': username, 
-                                                  "status": status, 
-                                                  'avatar': avatar})
+

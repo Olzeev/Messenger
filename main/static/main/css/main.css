@@ -669,3 +669,73 @@ body{
     cursor: pointer;
 }
 
+.settings-avatar{
+    object-fit: cover;
+    border-radius: 50%;
+    width: 300px;
+    height: 300px;
+    position: relative;
+}
+
+.settings-title{
+    font-family: 'Inter';
+    color: white;
+    font-size: 25pt;
+    margin-top: 50px;
+}
+
+.settings-text{
+    font-family: 'Inter';
+    color: grey;
+    margin-top: 10px;
+    font-size: 15pt;
+}
+
+.settings-edit-icon{
+    width: 30px;
+    height: 30px;
+    position: relative;
+    top: 5px;
+}
+
+.settings-delete-profile{
+    background-color: #FF4444;
+    width: 150px;
+    height: 40px;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    margin-top: 10px;
+    transition: 0.2s;
+    cursor: pointer;
+}
+.settings-delete-profile:hover{
+    background-color: #a02b2b;
+    color: grey;
+}
+
+.settings-exit{
+    position: relative;
+    left: 10px;
+    top: 10px;
+}
+
+.settings-logout{
+    display: block;
+    background-color: #FF4444;
+    width: 100px;
+    height: 30px;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    margin-top: 50px;
+    transition: 0.2s;
+    text-decoration: none;
+    font-family: 'Inter';
+    text-align: center;
+    padding-top: 10px;
+}
+.settings-logout:hover{
+    background-color: #a02b2b;
+    color: grey;
+}

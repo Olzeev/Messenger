@@ -1,0 +1,29 @@
+{% extends 'main/header.html' %} 
+
+{% load static %} 
+
+{% block title %} 
+Настройки
+{% endblock %} 
+
+{% block content %} 
+{% csrf_token %} 
+
+<a href="{% url 'main' %}" class="settings-exit">
+    <img src="{% static 'main/png/exit_icon.svg' %}">
+</a>
+
+<div style="display: flex; position: relative; left: 20px; top: 20px;">
+    <img src="{{ avatar.url }}" class="settings-avatar">
+    <div style="margin-left: 50px;">
+        <p class="settings-title">{{ request.user.first_name }} <a href="{% url 'edit_info' %}"><img src="{% static 'main/png/edit_icon.svg' %}" class="settings-edit-icon"></a></p>
+        <p class="settings-text">Статус: {{ status }}</p>
+        <p class="settings-text">ID: @{{ request.user.id }}</p>
+        <p class="settings-text">Эл. почта: {{ request.user.username }}</p>
+        <a class="settings-logout" href="{% url 'logout' %}">Выйти</a>
+        <button class="settings-delete-profile">Удалить профиль</button>
+    </div>
+</div>
+
+
+{% endblock %} 

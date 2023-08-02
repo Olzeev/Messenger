@@ -46,7 +46,7 @@
         <div class="user_info" id="user_info">
             <img src="{{ avatar }}" class="user_info_avatar">
             <p class="user_info_username">{{ username }}</p>
-            <a>
+            <a href="{% url 'settings' %}">
                 <img src="{% static 'main/png/settings.svg' %}" class="user_info_settings">
             </a>
             
