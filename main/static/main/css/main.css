@@ -655,6 +655,7 @@ body{
     margin-left: 15px;
     background-color: #FF4444;
     color: white;
+    cursor: pointer;
 }
 .clear-history-button-no{
     display: block;
@@ -665,5 +666,6 @@ body{
     margin-left: 10px;
     background-color: white;
     color: #464646;
+    cursor: pointer;
 }
 
