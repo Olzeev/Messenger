@@ -12,5 +12,6 @@ urlpatterns = [
     path('get_messages', views.GetMessagesView.as_view(), name='get_messages'),
     path('block_user', views.BlockUserView.as_view(), name='block_user'),
     path('unblock_user', views.UnblockUserView.as_view(), name='unblock_user'),
+    path('clear_history', views.ClearHistoryView.as_view(), name='clear_history'),
     path('edit_info', views.edit_info, name='edit_info')
 ]

@@ -160,6 +160,16 @@ class UnblockUserView(View):
 
         return JsonResponse({'is_blocked': is_blocked}, status=200)
 
+
+class ClearHistoryView(View):
+    def get(self, request):
+        user_id = request.GET.get('user_id')
+        Message.objects.filter(id_sender=str(request.user.id), id_reciever=str(user_id)).delete()
+        Message.objects.filter(id_sender=str(user_id), id_reciever=str(request.user.id)).delete()
+        print(user_id, request.user.id)
+
+        return JsonResponse({}, status=200)
+
         
 
 def edit_info(request):

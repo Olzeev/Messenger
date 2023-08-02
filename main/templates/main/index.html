@@ -101,9 +101,10 @@
             <img src="{% static 'main/png/block_icon.svg' %}" class="profile-image-dangerous" id="block_user_image">
             <p class="profile-text-dangerous" id="block_user_text">Заблокировать</p>
         </a>
-        <a style="display: flex; position: absolute; left: 27px; bottom: 20px;">
+        <a style="display: flex; position: absolute; left: 27px; bottom: 20px; cursor: pointer;" id="clear_history">
             <img src="{% static 'main/png/clean_icon.svg' %}" class="profile-image-dangerous">
-            <p class="profile-text-dangerous">Очистить историю</p>
+            
+            <p class="profile-text-dangerous" id="clear_history_text" onclick="show_warning_clear_history('{{ user_id }}')">Очистить историю</p>
         </a>
     </div>
 </div>

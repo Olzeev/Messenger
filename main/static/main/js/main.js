@@ -60,7 +60,9 @@ $(document).ready(function() {
                     time: response.time
                     
                 }))
+                
                 document.getElementById("chat-input").value = ""
+                
             }
         })
     
@@ -269,6 +271,45 @@ function unblock_user(user_id_unblocking){
             
                 
             
+        }
+    })
+}
+
+function show_warning_clear_history(user_id){
+    el_to_remove = document.getElementById('clear_history_text')
+    el_to_remove.remove()
+    element = document.getElementById('clear_history')
+    el_to_add = document.createElement("div")
+    el_to_add.style.display = "flex"
+    el_to_add.innerHTML = `<p id="clear-history-permission">Вы уверены?</p>
+                        <button class='clear-history-button-yes' id="clear-history-permission-yes" onclick="clear_history('${user_id}')">Да</button>
+                        <button class='clear-history-button-no' id="clear-history-permission-no" onclick="clear_history_show_initial('${user_id}')">Нет</button>`
+    element.append(el_to_add)
+}
+
+function clear_history_show_initial(user_id){
+    element = document.getElementById('clear_history')
+    el_to_remove = document.getElementById('clear-history-permission')
+    el_to_remove.remove()
+    el_to_remove = document.getElementById('clear-history-permission-yes')
+    el_to_remove.remove()
+    el_to_remove = document.getElementById('clear-history-permission-no')
+    el_to_remove.remove()
+    el_to_add = document.createElement("p")
+    el_to_add.innerHTML = `<p class="profile-text-dangerous" id="clear_history_text" onclick="show_warning_clear_history('${user_id}')">Очистить историю</p>`
+    element.append(el_to_add)
+}
+
+function clear_history(user_id){
+    $.ajax({
+        url: 'clear_history', 
+        type: 'get', 
+        data: {
+            user_id: document.getElementById('profile-id').textContent.substring(1)
+        }, 
+        success: function(response){
+            $('#messages').empty()
+            clear_history_show_initial(user_id)
         }
     })
 }

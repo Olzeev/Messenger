@@ -636,3 +636,34 @@ body{
     padding-bottom: 10px;
 }
 
+#clear-history-permission{
+    color: #FF4444;
+    font-family: 'Inter';
+    font-size: 12pt;
+    position: relative;
+    margin-left: 12px;
+    top: 2px;
+}
+
+.clear-history-button-yes{
+    font-family: 'Inter-bold';
+    display: block;
+    border: none;
+    border-radius: 5px;
+    width: 50px;
+    height: 30px;
+    margin-left: 15px;
+    background-color: #FF4444;
+    color: white;
+}
+.clear-history-button-no{
+    display: block;
+    border: none;
+    border-radius: 5px;
+    width: 50px;
+    height: 30px;
+    margin-left: 10px;
+    background-color: white;
+    color: #464646;
+}
+
