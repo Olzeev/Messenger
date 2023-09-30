@@ -1,6 +1,7 @@
 from . import views
 from django.urls import path
-
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     path('', views.index, name='main'), 
@@ -15,4 +16,4 @@ urlpatterns = [
     path('block_user', views.BlockUserView.as_view(), name='block_user'),
     path('unblock_user', views.UnblockUserView.as_view(), name='unblock_user'),
     path('clear_history', views.ClearHistoryView.as_view(), name='clear_history')
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

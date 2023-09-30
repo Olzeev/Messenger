@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent
 SECRET_KEY = 'django-insecure-cgwn_iejz)tijap)=1@lbm^c$q5qy2(8ihj3dut#x6$sx49cv0'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['olzeev.space']
 
@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['olzeev.space']
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     'channels',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -47,7 +48,10 @@ ASGI_APPLICATION = 'Messenger.asgi.application'
 
 CHANNEL_LAYERS = {
     'default':{
-        'BACKEND': 'channels.layers.InMemoryChannelLayer'
+        'BACKEND': 'channels.layers.InMemoryChannelLayer', 
+	"config": {
+		"hosts": [("olzeev.space", 8000)],
+    	}
     }
 }
 
@@ -127,7 +131,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_DIR = os.path.join(BASE_DIR, 'main/static')
+STATIC_URL = os.path.join(BASE_DIR, 'main/static/')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -135,5 +139,8 @@ STATIC_DIR = os.path.join(BASE_DIR, 'main/static')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = os.path.join(BASE_DIR.parent, 'media/')
+
+MEDIA_ROOT = BASE_DIR / 'media'
+
+CSRF_TRUSTED_ORIGINS = ['https://olzeev.space']
