@@ -207,6 +207,6 @@ class ClearHistoryView(View):
 
 class GetId(View):
     def get(self, request):
-        return JsonResponse({'id': request.user.id}, status=200)
+        return JsonResponse({'id': str(request.user.id) }, status=200)
 
 
