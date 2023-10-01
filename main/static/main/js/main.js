@@ -28,7 +28,6 @@ $(document).ready(function() {
                             scrollTop: $(
                               '#messages').get(0).scrollHeight
                         }, 500);
-                        console.log(0)
                     } else if (data.id_sender == response.id){
                         $('#messages').append(
                             `<li class="message">
@@ -40,7 +39,6 @@ $(document).ready(function() {
                             scrollTop: $(
                               '#messages').get(0).scrollHeight
                         }, 500);
-                        console.log(1)
                     }
                 }
             })
@@ -77,12 +75,13 @@ $(document).ready(function() {
         });
     });
     $(document.getElementById('chat-input')).change(function (){
+        console.log(id_reciever)
         $.ajax({
             url: 'send_message', 
             type: 'get', 
             data: {
                 message_text: document.getElementById("chat-input").value, 
-                id: document.getElementById('profile-id').textContent, 
+                id: id_reciever,
                 csrfmiddlewaretoken: '{{ csrf_token }}'
             }, 
             success: function(response){

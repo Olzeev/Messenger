@@ -150,7 +150,7 @@ class SearchPersonView(View):
 class SendMessageView(View):
     def get(self, request):
         text = request.GET.get('message_text')
-        id_reciever = request.GET.get('id')[1:]
+        id_reciever = request.GET.get('id')
         if not User_blocked.objects.filter(user_id=str(request.user.id), id_user_blocked=id_reciever).exists() and \
             not User_blocked.objects.filter(user_id=id_reciever, id_user_blocked=str(request.user.id)).exists():
             message = Message(id_sender=request.user.id, id_reciever=id_reciever, text=text, time=timezone.now())
