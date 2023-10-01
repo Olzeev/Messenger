@@ -28,6 +28,7 @@ $(document).ready(function() {
                                 scrollTop: $(
                                   '#messages').get(0).scrollHeight
                             }, 500);
+                            console.log(1)
                         } else{
                             for (var i = 0; i < chat_list.length; ++i){
                                 console.log(chat_list[i][0], data.id_sender)
