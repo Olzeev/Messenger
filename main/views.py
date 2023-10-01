@@ -27,7 +27,18 @@ def find_last_communicated(request):
         user = get_user_model().objects.get(id=user_id)
         user_info = User_info.objects.get(user_info_id=user_id)
 
-        users_found.append([user.first_name, user_info.status, user_info.avatar.url, user.id, index])
+        messages = ((Message.objects.filter(id_sender=str(request.user.id), id_reciever=str(user_id)) | Message.objects.filter(id_reciever=str(request.user.id), id_sender=str(user_id)))).order_by("-time")
+        if len(messages) != 0:
+            if str(request.user.id) == str(messages[0].id_sender):
+                sender = 'Вы'
+            else:
+                sender = user.first_name
+            status = sender + ': ' + messages[0].text
+        else:
+            status = user_info.status
+               
+
+        users_found.append([user.first_name, status, user_info.avatar.url, user.id, index])
         index += 1
     return users_found
 
