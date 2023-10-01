@@ -1,4 +1,5 @@
 function get_id(){
+    result = -1
     $.ajax({
         url: 'get_id', 
         type: 'get', 
@@ -6,9 +7,10 @@ function get_id(){
             csrfmiddlewaretoken: '{{ csrf_token }}'
         }, 
         success: function(response){
-            return response.id;
+            result = response.id;
         }
     })
+    return result
 }
 
 id_reciever = -1
