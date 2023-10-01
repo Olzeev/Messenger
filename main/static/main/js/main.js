@@ -9,18 +9,42 @@ $(document).ready(function() {
         let data = JSON.parse(e.data)
         if (data.type === 'chat'){
             
+            $.ajax({
+                url: 'get_id', 
+                type: 'get', 
+                data: {
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                }, 
+                success: function(response){
+                    if (data.id_reciever == response.id) {
+                        $('#messages').append(
+                            `<li class="message">
+                                <p class="message-box-0">${data.message}</p>
+                                
+                            </li>`
+                        )  
+                        $("#messages").animate({
+                            scrollTop: $(
+                              '#messages').get(0).scrollHeight
+                        }, 500);
+                    } else if (data.id_sender == response.id){
+                        $('#messages').append(
+                            `<li class="message">
+                                <p class="message-box-1">${data.message}</p>
+                                
+                            </li>`
+                        )  
+                        $("#messages").animate({
+                            scrollTop: $(
+                              '#messages').get(0).scrollHeight
+                        }, 500);
+                    }
+                }
+            })
 
+            
 
-            $('#messages').append(
-                `<li class="message">
-                    <p class="message-box-${data.sender}">${data.message}</p>
-                    
-                </li>`
-            )  
-            $("#messages").animate({
-                scrollTop: $(
-                  '#messages').get(0).scrollHeight
-            }, 500);
+            
         }
     }
 
