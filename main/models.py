@@ -17,7 +17,7 @@ class Message(models.Model):
     id_sender = models.CharField(max_length=10)
     id_reciever = models.CharField(max_length=10)
     text = models.TextField(default='')
-    time = models.DateField(default=timezone.now())
+    time = models.DateTimeField(default=timezone.now())
     attached_file = models.FileField(default='')
 
     def __str__(self):
