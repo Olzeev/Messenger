@@ -21,10 +21,10 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Messenger.settings')
 application = ProtocolTypeRouter({
     'https': get_asgi_application(), 
     'websocket': AllowedHostsOriginValidator(
-	AuthMiddlewareStack(
-        	URLRouter(
-            		main.routing.websocket_urlpatterns
-        	)
-	)
+		AuthMiddlewareStack(
+			URLRouter(
+					main.routing.websocket_urlpatterns
+			)
+		)
     )
 })
