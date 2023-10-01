@@ -2,6 +2,35 @@
 id_reciever = -1
 chat_list = []
 
+function show_chat_list(){
+    $.ajax({
+        url: 'search_person', 
+        type: 'get',
+        data: {
+            search_input_text: document.getElementById("search_input").value,
+            csrfmiddlewaretoken: '{{ csrf_token }}'
+        }, 
+        success: function(response) {
+            $('#chat_list').empty()
+            chat_list = []
+            for (let i = 0; i < response.users_found.length; i++){
+                user = response.users_found[i]  // 0 - username, 1 - status, 2 - avatar url, 3 - id
+                text = `<li class="chat_list_element" id="chat_list_element_${i}" onclick="show_chat('${user[2]}', '${user[0]}', '${user[1]}', '${user[3]}', 
+                                        '${i}', '${response.users_found.length}')">
+                                            <img class="chat_list_element_image" src="${user[2]}">
+                                            <div>
+                                                <p class="chat_list_element_title">${user[0]}</p>
+                                                <p class="chat_list_element_text">${user[1]}</p>
+                                            </div>
+                                            
+                                        </li>`
+                $("#chat_list").append(text)
+                chat_list.push([user[3], text])
+            }
+        }
+    });
+}
+
 $(document).ready(function() {
     let url = `WSS://${window.location.host}/ws/global-socket/`
     const chatSocket = new WebSocket(url)
@@ -28,9 +57,8 @@ $(document).ready(function() {
                                 scrollTop: $(
                                   '#messages').get(0).scrollHeight
                             }, 500);
-                            console.log(1)
                         } else{
-                            console.log(124)
+                            
                             for (var i = 0; i < chat_list.length; ++i){
                                 console.log(chat_list[i][0], data.id_sender)
                                 if (chat_list[i][0] == data.id_sender){
@@ -59,34 +87,7 @@ $(document).ready(function() {
         }
     }
 
-    $(document.getElementById("search_input")).change(function(){
-        $.ajax({
-            url: 'search_person', 
-            type: 'get',
-            data: {
-                search_input_text: document.getElementById("search_input").value,
-                csrfmiddlewaretoken: '{{ csrf_token }}'
-            }, 
-            success: function(response) {
-                $('#chat_list').empty()
-                chat_list = []
-                for (let i = 0; i < response.users_found.length; i++){
-                    user = response.users_found[i]  // 0 - username, 1 - status, 2 - avatar url, 3 - id
-                    text = `<li class="chat_list_element" id="chat_list_element_${i}" onclick="show_chat('${user[2]}', '${user[0]}', '${user[1]}', '${user[3]}', 
-                                            '${i}', '${response.users_found.length}')">
-                                                <img class="chat_list_element_image" src="${user[2]}">
-                                                <div>
-                                                    <p class="chat_list_element_title">${user[0]}</p>
-                                                    <p class="chat_list_element_text">${user[1]}</p>
-                                                </div>
-                                                
-                                            </li>`
-                    $("#chat_list").append(text)
-                    chat_list.push([user[3], text])
-                }
-            }
-        });
-    });
+    $(document.getElementById("search_input")).change(show_chat_list);
     $(document.getElementById('chat-input')).change(function (){
         
         $.ajax({
@@ -175,7 +176,6 @@ function show_chat(avatar, username, status, id, chat_list_index, chat_list_leng
             $('#messages').empty()
 
             id_reciever = id;
-            
             messages = response.messages
             for (let i = 0; i < messages.length; ++i){
                 $('#messages').append(
