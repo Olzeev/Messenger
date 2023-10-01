@@ -177,6 +177,9 @@ function show_chat(avatar, username, status, id, chat_list_index, chat_list_leng
 
             id_reciever = id;
             messages = response.messages
+            for (var i = 0; i < chat_list.length; ++i) {
+                if (chat_list[i][0] == id) document.getElementById(`chat_list_element_notif${id}`).style.visibility = "hidden";
+            }
             for (let i = 0; i < messages.length; ++i){
                 $('#messages').append(
                     `<li class="message">
