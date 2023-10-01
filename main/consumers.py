@@ -24,7 +24,7 @@ class GlobalConsumer(WebsocketConsumer):
         async_to_sync(self.channel_layer.group_send)(
             self.room_group_name, 
             {
-                'type': 'chat_message',
+                'type': 'chat',
                 'message': message, 
                 'sender': 0,  
                 'time': time
