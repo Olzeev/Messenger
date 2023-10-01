@@ -143,7 +143,7 @@ class SearchPersonView(View):
 
                 messages = ((Message.objects.filter(id_sender=str(request.user.id), id_reciever=str(user.id)) | Message.objects.filter(id_reciever=str(request.user.id), id_sender=str(user.id)))).order_by("-time")
                 if len(messages) != 0:
-                    if request.user.id == messages[0].id_sender:
+                    if str(request.user.id) == str(messages[0].id_sender):
                         sender = 'Вы'
                     else:
                         sender = User.objects.get(id=messages[0].id_sender).get_username()
