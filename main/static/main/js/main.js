@@ -59,7 +59,7 @@ $(document).ready(function() {
                 csrfmiddlewaretoken: '{{ csrf_token }}'
             }, 
             success: function(response){
-
+                console.log(response.id_sender)
                 chatSocket.send(JSON.stringify({
                     message: document.getElementById("chat-input").value,
                     time: response.time,
