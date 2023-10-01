@@ -59,11 +59,15 @@ $(document).ready(function() {
                                   '#messages').get(0).scrollHeight
                             }, 500);
                         } else{
-                            
+                            found = false;
                             for (var i = 0; i < chat_list.length; ++i){
                                 if (chat_list[i][0] == data.id_sender){
+                                    found = true;
                                     document.getElementById(`chat_list_element_notif${chat_list[i][0]}`).style.visibility = "visible";
                                 }
+                            }
+                            if (!found){
+                                show_chat_list()
                             }
                         }
                     } else if (data.id_sender == response.id){
