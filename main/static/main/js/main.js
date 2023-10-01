@@ -1,10 +1,28 @@
+function get_id(){
+    $.ajax({
+        url: 'get_id', 
+        type: 'get', 
+        data: {
+            csrfmiddlewaretoken: '{{ csrf_token }}'
+        }, 
+        success: function(response){
+            return response.id;
+        }
+    })
+}
+
+id_reciever = -1
+
+
 $(document).ready(function() {
     let url = `WSS://${window.location.host}/ws/global-socket/`
     const chatSocket = new WebSocket(url)
     chatSocket.onmessage = function(e){
         let data = JSON.parse(e.data)
         if (data.type === 'chat'){
-            console.log(data.sender)
+            
+                
+
             $('#messages').append(
                 `<li class="message">
                     <p class="message-box-${data.sender}">${data.message}</p>
@@ -57,8 +75,9 @@ $(document).ready(function() {
 
                 chatSocket.send(JSON.stringify({
                     message: document.getElementById("chat-input").value,
-                    time: response.time
-                    
+                    time: response.time,
+                    id_sender: get_id(), 
+                    id_reciever: id_reciever
                 }))
                 
                 document.getElementById("chat-input").value = ""
@@ -129,6 +148,8 @@ function show_chat(avatar, username, status, id, chat_list_index, chat_list_leng
         success: function(response){
             
             $('#messages').empty()
+
+            id_reciever = id;
             
             messages = response.messages
             for (let i = 0; i < messages.length; ++i){
@@ -190,6 +211,7 @@ function hide_chat(chat_list_index){
     chat = document.getElementById('chat');
     chat.style.marginLeft = "100%";
     document.getElementById(`chat_list_element_${chat_list_index}`).style.backgroundColor = "#252525";
+    id_reciever = -1;
 }
 
 
