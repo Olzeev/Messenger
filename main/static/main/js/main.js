@@ -16,6 +16,7 @@ $(document).ready(function() {
                     csrfmiddlewaretoken: '{{ csrf_token }}'
                 }, 
                 success: function(response){
+                    console.log(data.id_reciever, data.id_sender, response.id)
                     if (data.id_reciever == response.id) {
                         $('#messages').append(
                             `<li class="message">
@@ -27,6 +28,7 @@ $(document).ready(function() {
                             scrollTop: $(
                               '#messages').get(0).scrollHeight
                         }, 500);
+                        console.log(0)
                     } else if (data.id_sender == response.id){
                         $('#messages').append(
                             `<li class="message">
@@ -38,6 +40,7 @@ $(document).ready(function() {
                             scrollTop: $(
                               '#messages').get(0).scrollHeight
                         }, 500);
+                        console.log(1)
                     }
                 }
             })
