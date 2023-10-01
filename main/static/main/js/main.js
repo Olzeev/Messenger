@@ -1,17 +1,3 @@
-function get_id(){
-    result = -1
-    $.ajax({
-        url: 'get_id', 
-        type: 'get', 
-        data: {
-            csrfmiddlewaretoken: '{{ csrf_token }}'
-        }, 
-        success: function(response){
-            console.log(response.id)
-        }
-    })
-    return result
-}
 
 id_reciever = -1
 
@@ -64,7 +50,6 @@ $(document).ready(function() {
         });
     });
     $(document.getElementById('chat-input')).change(function (){
-        console.log(get_id(), id_reciever)
         $.ajax({
             url: 'send_message', 
             type: 'get', 
@@ -78,7 +63,7 @@ $(document).ready(function() {
                 chatSocket.send(JSON.stringify({
                     message: document.getElementById("chat-input").value,
                     time: response.time,
-                    id_sender: get_id(), 
+                    id_sender: response.id_sender, 
                     id_reciever: id_reciever
                 }))
                 

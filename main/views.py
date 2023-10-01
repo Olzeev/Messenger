@@ -155,7 +155,8 @@ class SendMessageView(View):
             not User_blocked.objects.filter(user_id=id_reciever, id_user_blocked=str(request.user.id)).exists():
             message = Message(id_sender=request.user.id, id_reciever=id_reciever, text=text, time=timezone.now())
             message.save()
-            return JsonResponse({'time': timezone.now()}, status=200)
+            return JsonResponse({'time': timezone.now(), 
+                                'id_sender': request.user.id}, status=200)
 
 
 class GetMessagesView(View):
