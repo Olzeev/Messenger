@@ -5,7 +5,7 @@ from asgiref.sync import async_to_sync
 
 
 class ChatConsumer(WebsocketConsumer):
-    def connect(self, request):
+    def connect(self):
         self.room_group_name = 'global'
 
         async_to_sync(self.channel_layer.group_add)(
