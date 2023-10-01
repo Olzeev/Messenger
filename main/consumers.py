@@ -2,11 +2,10 @@ import json
 
 from channels.generic.websocket import WebsocketConsumer
 from asgiref.sync import async_to_sync
-from .views import GetId
 
 
 class ChatConsumer(WebsocketConsumer):
-    def connect(self):
+    def connect(self, request):
         self.room_group_name = 'global'
 
         async_to_sync(self.channel_layer.group_add)(
