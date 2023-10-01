@@ -137,10 +137,15 @@ class SearchPersonView(View):
         User = get_user_model()
         users = User.objects.all()
         for user in users:
-            if text in user.first_name and user.id != request.user.id:
+            if text.lower() in user.first_name.lower() and user.id != request.user.id:
                 
                 user_info = User_info.objects.get(user_info_id=user.id)
-                status = user_info.status
+
+                messages = ((Message.objects.filter(id_sender=str(request.user.id), id_reciever=str(user.id)) | Message.objects.filter(id_reciever=str(request.user.id), id_sender=str(user.id)))).order_by("time")
+                if len(messages) != 0:
+                    status = messages[-1].text
+                else:
+                    status = user_info.status
                 avatar = user_info.avatar
                 users_found.append([user.first_name, status, avatar.url, user.id])
         return JsonResponse({'users_found': users_found}, status=200)
