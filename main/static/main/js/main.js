@@ -22,7 +22,7 @@ function show_chat_list(){
                                                 <p class="chat_list_element_title">${user[0]}</p>
                                                 <p class="chat_list_element_text">${user[1]}</p>
                                             </div>
-                                            <div style="width: 10px; height: 10px; background-color: red; visibility: hidden" id="chat_list_element_notif${user[3]}"></div>
+                                            <div class="chat_list_element_notif" id="chat_list_element_notif${user[3]}"></div>
                                         </li>`
                 $("#chat_list").append(text)
                 chat_list.push([user[3], text])

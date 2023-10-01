@@ -738,3 +738,13 @@ body{
     background-color: #a02b2b;
     color: grey;
 }
+
+.chat_list_element_notif{
+    width: 30px;
+    height: 30px;
+    border: 50%;
+    background-color: #BE9E79;
+    top: 50px;
+    position: relative;
+    visibility: hidden;
+}
