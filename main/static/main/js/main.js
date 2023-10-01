@@ -6,6 +6,7 @@ function get_id(){
             csrfmiddlewaretoken: '{{ csrf_token }}'
         }, 
         success: function(response){
+            console.log('Got')
             return response.id;
         }
     })
@@ -21,7 +22,7 @@ $(document).ready(function() {
         let data = JSON.parse(e.data)
         if (data.type === 'chat'){
             
-                
+
 
             $('#messages').append(
                 `<li class="message">
