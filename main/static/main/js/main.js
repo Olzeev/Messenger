@@ -30,6 +30,7 @@ $(document).ready(function() {
                             }, 500);
                             console.log(1)
                         } else{
+                            console.log(124)
                             for (var i = 0; i < chat_list.length; ++i){
                                 console.log(chat_list[i][0], data.id_sender)
                                 if (chat_list[i][0] == data.id_sender){
