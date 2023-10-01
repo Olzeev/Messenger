@@ -141,7 +141,7 @@ class SearchPersonView(View):
                 
                 user_info = User_info.objects.get(user_info_id=user.id)
 
-                messages = ((Message.objects.filter(id_sender=str(request.user.id), id_reciever=str(user.id)) | Message.objects.filter(id_reciever=str(request.user.id), id_sender=str(user.id)))).order_by("-time")
+                messages = ((Message.objects.filter(id_sender=str(request.user.id), id_reciever=str(user.id)) | Message.objects.filter(id_reciever=str(request.user.id), id_sender=str(user.id)))).order_by("time")
                 if len(messages) != 0:
                     status = messages[0].text
                 else:
