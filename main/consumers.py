@@ -16,7 +16,7 @@ class GlobalConsumer(WebsocketConsumer):
 
     def receive(self, text_data):
         text_data_json = json.loads(text_data)
-        id_reciever = text_data_json['id_reciever']
+        #id_reciever = text_data_json['id_reciever']
         message = text_data_json['message']
         time = text_data_json['time']
 
