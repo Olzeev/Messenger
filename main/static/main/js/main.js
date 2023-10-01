@@ -68,6 +68,7 @@ $(document).ready(function() {
                             }
                             if (!found){
                                 show_chat_list()
+                                console.log(data.id_sender)
                                 document.getElementById(`chat_list_element_notif${data.id_sender}`).style.visibility = "visible";
                             }
                         }
