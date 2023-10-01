@@ -7,7 +7,7 @@ function get_id(){
             csrfmiddlewaretoken: '{{ csrf_token }}'
         }, 
         success: function(response){
-            this.result = response.id;
+            console.log(response.id)
         }
     })
     return result
