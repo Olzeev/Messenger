@@ -8,6 +8,13 @@ from django.views.generic import View
 from django.http import JsonResponse
 
 
+def handle(text):
+    new_text = ''
+    for el in text:
+        if el != "'" and el != '"':
+            new_text += el
+    return new_text
+
 def find_last_communicated(request):
     messages = (Message.objects.filter(id_sender=request.user.id) | Message.objects.filter(id_reciever=request.user.id)).order_by("-time")
     users = []
@@ -33,7 +40,7 @@ def find_last_communicated(request):
                 sender = 'Вы'
             else:
                 sender = user.first_name
-            status = sender + ': ' + messages[0].text
+            status = sender + ": " + messages[0].text
         else:
             status = user_info.status
                
@@ -170,6 +177,7 @@ class SearchPersonView(View):
 class SendMessageView(View):
     def get(self, request):
         text = request.GET.get('message_text')
+        text = handle(text)
         id_reciever = request.GET.get('id')
         if not User_blocked.objects.filter(user_id=str(request.user.id), id_user_blocked=id_reciever).exists() and \
             not User_blocked.objects.filter(user_id=id_reciever, id_user_blocked=str(request.user.id)).exists():
