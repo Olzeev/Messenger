@@ -62,7 +62,7 @@ $(document).ready(function() {
         });
     });
     $(document.getElementById('chat-input')).change(function (){
-        console.log(id_reciever)
+        console.log(id_sender, id_reciever)
         $.ajax({
             url: 'send_message', 
             type: 'get', 
