@@ -146,7 +146,7 @@ class SearchPersonView(View):
                     if str(request.user.id) == str(messages[0].id_sender):
                         sender = 'Вы'
                     else:
-                        sender = User.objects.get(id=messages[0].id_sender).get_username()
+                        sender = User.objects.get(id=messages[0].id_sender).first_name
                     status = sender + ': ' + messages[0].text
                 else:
                     status = user_info.status
