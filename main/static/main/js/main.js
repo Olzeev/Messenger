@@ -4,7 +4,7 @@ $(document).ready(function() {
     chatSocket.onmessage = function(e){
         let data = JSON.parse(e.data)
         if (data.type === 'chat'){
-            
+            console.log(data.sender)
             $('#messages').append(
                 `<li class="message">
                     <p class="message-box-${data.sender}">${data.message}</p>
