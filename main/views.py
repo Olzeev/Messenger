@@ -143,8 +143,11 @@ class SearchPersonView(View):
 
                 messages = ((Message.objects.filter(id_sender=str(request.user.id), id_reciever=str(user.id)) | Message.objects.filter(id_reciever=str(request.user.id), id_sender=str(user.id)))).order_by("-time")
                 if len(messages) != 0:
-                    status = messages[0].text
-                    print(len(messages))
+                    if request.user.id == messages[0].id_sender:
+                        sender = 'Вы'
+                    else:
+                        sender = User.objects.get(id=messages[0].id_sender).get_username()
+                    status = sender + ': ' + messages[0].text
                 else:
                     status = user_info.status
                 avatar = user_info.avatar
