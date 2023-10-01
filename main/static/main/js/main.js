@@ -1,6 +1,6 @@
 
 id_reciever = -1
-
+chat_list = []
 
 $(document).ready(function() {
     let url = `WSS://${window.location.host}/ws/global-socket/`
@@ -17,16 +17,24 @@ $(document).ready(function() {
                 }, 
                 success: function(response){
                     if (data.id_reciever == response.id) {
-                        $('#messages').append(
-                            `<li class="message">
-                                <p class="message-box-0">${data.message}</p>
-                                
-                            </li>`
-                        )  
-                        $("#messages").animate({
-                            scrollTop: $(
-                              '#messages').get(0).scrollHeight
-                        }, 500);
+                        if (id_reciever == data.id_sender){
+                            $('#messages').append(
+                                `<li class="message">
+                                    <p class="message-box-0">${data.message}</p>
+                                    
+                                </li>`
+                            )  
+                            $("#messages").animate({
+                                scrollTop: $(
+                                  '#messages').get(0).scrollHeight
+                            }, 500);
+                        } else{
+                            for (var i = 0; i < chat_list.length; ++i){
+                                if (chat_list[i][0] == data.id_sender){
+                                    console.log(1)
+                                }
+                            }
+                        }
                     } else if (data.id_sender == response.id){
                         $('#messages').append(
                             `<li class="message">
@@ -38,7 +46,7 @@ $(document).ready(function() {
                             scrollTop: $(
                               '#messages').get(0).scrollHeight
                         }, 500);
-                    }
+                    } 
                 }
             })
 
@@ -58,9 +66,10 @@ $(document).ready(function() {
             }, 
             success: function(response) {
                 $('#chat_list').empty()
+                chat_list = []
                 for (let i = 0; i < response.users_found.length; i++){
                     user = response.users_found[i]  // 0 - username, 1 - status, 2 - avatar url, 3 - id
-                    $("#chat_list").append(`<li class="chat_list_element" id="chat_list_element_${i}" onclick="show_chat('${user[2]}', '${user[0]}', '${user[1]}', '${user[3]}', 
+                    text = `<li class="chat_list_element" id="chat_list_element_${i}" onclick="show_chat('${user[2]}', '${user[0]}', '${user[1]}', '${user[3]}', 
                                             '${i}', '${response.users_found.length}')">
                                                 <img class="chat_list_element_image" src="${user[2]}">
                                                 <div>
@@ -68,7 +77,9 @@ $(document).ready(function() {
                                                     <p class="chat_list_element_text">${user[1]}</p>
                                                 </div>
                                                 
-                                            </li>`)
+                                            </li>`
+                    $("#chat_list").append(text)
+                    chat_list.push([user[3], text])
                 }
             }
         });
@@ -268,8 +279,7 @@ function block_user(user_id_blocking){
             input.placeholder = 'Вы заблокировали этого пользователя'
             input.style.color = '#FF4444'
             input.style.textAlign = 'center'
-            
-            chatSocket.block()
+                
             
         }
     })
