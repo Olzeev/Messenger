@@ -62,7 +62,7 @@ $(document).ready(function() {
                             
                             for (var i = 0; i < chat_list.length; ++i){
                                 if (chat_list[i][0] == data.id_sender){
-                                    document.getElementById('chat_list_element'+chat_list[i][0]).style.visibility = "visible";
+                                    document.getElementById(`chat_list_element_notif${chat_list[i][0]}`).style.visibility = "visible";
                                 }
                             }
                         }
