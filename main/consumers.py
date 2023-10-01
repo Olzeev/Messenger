@@ -22,27 +22,19 @@ class ChatConsumer(WebsocketConsumer):
         id_sender = text_data_json['id_sender']
         id_reciever = text_data_json['id_reciever']
         
-        id1 = GetId.get()
-        if id_reciever == id1:
-            async_to_sync(self.channel_layer.group_send)(
-                self.room_group_name, 
-                {
-                    'type': 'chat_message', 
-                    'message': message, 
-                    'sender': 1,
-                    'time': time
-                }
-            )
-        elif id_sender == id1:
-            async_to_sync(self.channel_layer.group_send)(
-                self.room_group_name, 
-                {
-                    'type': 'chat_message', 
-                    'message': message, 
-                    'sender': 0,
-                    'time': time
-                }
-            )
+        
+        async_to_sync(self.channel_layer.group_send)(
+            self.room_group_name, 
+            {
+                'type': 'chat_message', 
+                'message': message, 
+                'time': time, 
+                'id_sender': id_sender, 
+                'id_reciever': id_reciever
+            }
+        )
+        
+        
         
         
     def chat_message(self, event):
