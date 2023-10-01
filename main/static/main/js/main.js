@@ -16,7 +16,6 @@ $(document).ready(function() {
                     csrfmiddlewaretoken: '{{ csrf_token }}'
                 }, 
                 success: function(response){
-                    console.log(data.id_reciever, data.id_sender, response.id)
                     if (data.id_reciever == response.id) {
                         $('#messages').append(
                             `<li class="message">
@@ -75,7 +74,7 @@ $(document).ready(function() {
         });
     });
     $(document.getElementById('chat-input')).change(function (){
-        console.log(id_reciever)
+        
         $.ajax({
             url: 'send_message', 
             type: 'get', 
@@ -269,7 +268,8 @@ function block_user(user_id_blocking){
             input.placeholder = 'Вы заблокировали этого пользователя'
             input.style.color = '#FF4444'
             input.style.textAlign = 'center'
-                
+            
+            chatSocket.block()
             
         }
     })
