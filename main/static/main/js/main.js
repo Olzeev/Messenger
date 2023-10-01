@@ -6,7 +6,6 @@ function get_id(){
             csrfmiddlewaretoken: '{{ csrf_token }}'
         }, 
         success: function(response){
-            console.log('Got')
             return response.id;
         }
     })
@@ -63,7 +62,7 @@ $(document).ready(function() {
         });
     });
     $(document.getElementById('chat-input')).change(function (){
-
+        console.log(id_reciever)
         $.ajax({
             url: 'send_message', 
             type: 'get', 
