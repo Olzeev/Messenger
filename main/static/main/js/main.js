@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    let url = `WSS://${window.location.host}/ws/socket-server/`
+    let url = `WSS://${window.location.host}/ws/global-socket/`
     const chatSocket = new WebSocket(url)
     chatSocket.onmessage = function(e){
         let data = JSON.parse(e.data)
