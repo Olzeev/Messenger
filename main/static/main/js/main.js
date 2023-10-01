@@ -22,7 +22,7 @@ function show_chat_list(){
                                                 <p class="chat_list_element_title">${user[0]}</p>
                                                 <p class="chat_list_element_text">${user[1]}</p>
                                             </div>
-                                            
+                                            <div style="width: 10px; height: 10px; background-color: red;"></div>
                                         </li>`
                 $("#chat_list").append(text)
                 chat_list.push([user[3], text])
@@ -61,7 +61,6 @@ $(document).ready(function() {
                         } else{
                             
                             for (var i = 0; i < chat_list.length; ++i){
-                                console.log(chat_list[i][0], data.id_sender)
                                 if (chat_list[i][0] == data.id_sender){
                                     console.log(1)
                                 }
