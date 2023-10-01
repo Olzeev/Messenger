@@ -740,11 +740,11 @@ body{
 }
 
 .chat_list_element_notif{
-    width: 30px;
-    height: 30px;
-    border: 50%;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
     background-color: #BE9E79;
-    top: 10px;
+    top: 30px;
     position: relative;
     visibility: hidden;
 }
