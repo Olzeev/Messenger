@@ -32,6 +32,7 @@ function show_chat_list(){
 }
 
 $(document).ready(function() {
+    show_chat_list()
     let url = `WSS://${window.location.host}/ws/global-socket/`
     const chatSocket = new WebSocket(url)
     chatSocket.onmessage = function(e){

@@ -57,17 +57,7 @@
     
         <nav>
             <ul id="chat_list">
-                {% for user in users %}
-                    <li class="chat_list_element" id="chat_list_element_{{ user.4 }}" onclick="show_chat('{{ user.2 }}', '{{user.0}}', '{{user.1}}', '{{user.3}}', 
-                    '{{ user.4 }}', '{{ length }}')">
-                        <img class="chat_list_element_image" src="{{ user.2 }}">
-                        <div>
-                            <p class="chat_list_element_title">{{ user.0 }}</p>
-                            <p class="chat_list_element_text">{{ user.1 }}</p>
-                        </div>
-                        
-                    </li>
-                {% endfor %}
+                
             </ul>
         </nav>
         
