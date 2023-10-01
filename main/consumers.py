@@ -18,8 +18,6 @@ class ChatConsumer(WebsocketConsumer):
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
         time = text_data_json['time']
-
-        '''
         
         async_to_sync(self.channel_layer.group_send)(
             self.room_group_name, 
@@ -30,7 +28,7 @@ class ChatConsumer(WebsocketConsumer):
                 'time': time
             }
         )
-        '''
+        
         
     def chat_message(self, event):
         message = event['message']
