@@ -197,7 +197,10 @@ function show_chat(avatar, username, status, id, chat_list_index, chat_list_leng
             
             messages_html = document.getElementsByClassName("message-box-0")
             for (var i = 0; i < messages_html.length; ++i){
-                console.log(messages_html[i].height)
+                let x = messages_html[i].prop('scrollHeight');
+                let y = messages_html[i].css('lineHeight');
+                y = parseInt(y);
+                console.log(x / y);
             }
 
 
