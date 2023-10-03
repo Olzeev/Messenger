@@ -194,7 +194,7 @@ function show_chat(avatar, username, status, id, chat_list_index, chat_list_leng
                     </li>`
                 )  
             }
-            console.log(document.getElementsByClassName("message-box-0"))
+            console.log(document.getElementsByClassName("message-box-0").length)
             $("#messages").animate({
                 scrollTop: $(
                   '#messages').get(0).scrollHeight
